@@ -8,12 +8,12 @@ var pitch_input := 0.0
 @onready var pitch_pivot := $TwistPivot/PitchPivot
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	#pass # Replace with function body.
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	var input = Vector3.ZERO
 	input.x = Input.get_axis("move_left","move_right")
 	input.z = Input.get_axis("move_forward", "move_backward")
@@ -35,3 +35,7 @@ func _unhandled_input(event):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			twist_input = -event.relative.x * mouse_sensetivity
 			pitch_input = -event.relative.y * mouse_sensetivity
+	
+	if event.is_action_pressed("jump"):
+		if $RayCast3D.is_colliding():
+			apply_central_impulse(Vector3.UP * 15.0)

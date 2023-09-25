@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm4b8ro6i5hso"]
+[gd_scene load_steps=10 format=3 uid="uid://cm4b8ro6i5hso"]
 
 [ext_resource type="PackedScene" uid="uid://bhkliha0x6acg" path="res://player.tscn" id="1_exejl"]
+[ext_resource type="Script" path="res://WorldBoundary.gd" id="2_knl8k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5ryjd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -20,6 +21,11 @@ size = Vector2(10, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2nanm"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_31gn2"]
+friction = 0.0
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1qb3a"]
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -38,5 +44,16 @@ mesh = SubResource("PlaneMesh_puli1")
 shape = SubResource("ConcavePolygonShape3D_2nanm")
 
 [node name="Player" parent="." instance=ExtResource("1_exejl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
-linear_damp = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10321, -2)
+physics_material_override = SubResource("PhysicsMaterial_31gn2")
+gravity_scale = 2.0
+linear_damp = 4.0
+
+[node name="WorldBoundary" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("2_knl8k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBoundary"]
+shape = SubResource("WorldBoundaryShape3D_1qb3a")
+
+[connection signal="body_entered" from="WorldBoundary" to="WorldBoundary" method="_on_body_entered"]
