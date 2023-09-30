@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0lup3s3fbwbc"]
+[gd_scene load_steps=3 format=3 uid="uid://d0lup3s3fbwbc"]
+
+[ext_resource type="Material" uid="uid://bxbo1kou5jjtx" path="res://prototype_material.tres" id="1_d87ye"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qhsmm"]
+material = ExtResource("1_d87ye")
 size = Vector3(2, 2, 2)
 
 [node name="Node3D" type="Node3D"]
