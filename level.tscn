@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cm4b8ro6i5hso"]
+[gd_scene load_steps=12 format=3 uid="uid://cm4b8ro6i5hso"]
 
 [ext_resource type="PackedScene" uid="uid://bhkliha0x6acg" path="res://player.tscn" id="1_exejl"]
+[ext_resource type="Texture2D" uid="uid://c1l8djj2ftf5" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_ulijm"]
 [ext_resource type="Script" path="res://WorldBoundary.gd" id="2_knl8k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5ryjd"]
@@ -14,6 +15,11 @@ sky_material = SubResource("ProceduralSkyMaterial_5ryjd")
 background_mode = 2
 sky = SubResource("Sky_acirh")
 tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pc2w5"]
+albedo_texture = ExtResource("1_ulijm")
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_puli1"]
 size = Vector2(10, 10)
@@ -36,6 +42,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_pc2w5")
 mesh = SubResource("PlaneMesh_puli1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
