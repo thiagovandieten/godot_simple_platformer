@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://dw23bxnoxcbt5"]
+
+[ext_resource type="Script" path="res://coin.gd" id="1_h0as8"]
+[ext_resource type="Texture2D" uid="uid://wbt02vowkl5i" path="res://icon.svg" id="1_lp2fb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tfp3q"]
+radius = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o2oo8"]
+albedo_texture = ExtResource("1_lp2fb")
+metallic = 0.5
+roughness = 0.0
+uv1_offset = Vector3(0.5, 0, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_iimui"]
+material = SubResource("StandardMaterial3D_o2oo8")
+height = 0.2
+
+[sub_resource type="Animation" id="Animation_fnhmo"]
+resource_name = "Idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pjs2b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1etrd"]
+_data = {
+"Idle": SubResource("Animation_fnhmo"),
+"RESET": SubResource("Animation_pjs2b")
+}
+
+[node name="Coin" type="Area3D"]
+script = ExtResource("1_h0as8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_tfp3q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_iimui")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_1etrd")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
