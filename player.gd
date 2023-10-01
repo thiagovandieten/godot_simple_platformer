@@ -6,6 +6,12 @@ var pitch_input := 0.0
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
+@onready var label := $CanvasLayer/Label
+
+var coin_count:= 0: #getters/setters
+	set(value):
+		coin_count = value
+		label.text = "Coins: " + str(coin_count)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

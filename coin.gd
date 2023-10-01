@@ -19,3 +19,4 @@ func _on_body_entered(body):
 		tween.tween_property(self, "scale", Vector3.ZERO, 0.2)
 		tween.set_parallel(false)
 		tween.tween_callback(queue_free)
+		tween.tween_callback(func(): body.coin_count += 1) #anonymous func
